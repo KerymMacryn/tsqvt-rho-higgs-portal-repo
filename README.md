@@ -1,6 +1,6 @@
 # TSQVT ρ-Higgs Portal: Numerical Repository
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.XXXXXXX.svg)](https://doi.org/10.5281/zenodo.XXXXXXX)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18074977.svg)](https://doi.org/10.5281/zenodo.18074977)
 
 **Companion repository for:**
 
