@@ -1,0 +1,38 @@
+{
+  "metadata": {
+    "description": "TSQVT Spectral Parameters for ρ-Higgs Portal",
+    "version": "1.0",
+    "date": "2025-12-23",
+    "author": "Kerym Makraini"
+  },
+  "spectral_moments": {
+    "f0": 1.0,
+    "f2": 1.0,
+    "f4": 1.0
+  },
+  "portal_coefficient": {
+    "alpha1": 4.275e-2,
+    "alpha1_uncertainty": 0.5e-2
+  },
+  "enhancement_factors": {
+    "kappa_CW": 100.0,
+    "kappa_a2": 100.0,
+    "kappa_gen": 5.0,
+    "kappa_spec": 50000.0
+  },
+  "twistorial_parameters": {
+    "rho_c": 0.6666666667,
+    "w_ratio": 1.6329931619,
+    "sin2_thetaW_GUT": 0.375
+  },
+  "reference_scales": {
+    "Lambda_ref_GeV": 1000.0,
+    "v_EW_GeV": 246.22
+  },
+  "physical_constants": {
+    "m_h_GeV": 125.25,
+    "m_t_GeV": 172.69,
+    "m_W_GeV": 80.377,
+    "m_Z_GeV": 91.1876
+  }
+}

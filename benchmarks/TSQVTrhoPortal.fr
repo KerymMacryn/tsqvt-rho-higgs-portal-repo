@@ -1,0 +1,177 @@
+(* ================================================================ *)
+(* TSQVT ρ-Higgs Portal Model for FeynRules 2.x                      *)
+(* ================================================================ *)
+(* 
+   Model: Real singlet scalar ρ with Higgs portal λ_ρH ρ (H† H)
+
+   Usage:
+   1. Save this as TSQVTrhoPortal.fr
+   2. In Mathematica with FeynRules loaded:
+      << FeynRules`
+      LoadModel["SM.fr", "TSQVTrhoPortal.fr"]
+      WriteUFO[LagTSQVT, Output -> "TSQVT_rho_UFO"]
+   3. Copy TSQVT_rho_UFO/ to MadGraph5/models/
+*)
+
+(* ================================================================ *)
+(* Model Information *)
+(* ================================================================ *)
+
+M$ModelName = "TSQVT_rho_Portal";
+
+M$Information = {
+  Authors -> {"TSQVT Collaboration"},
+  Institutions -> {"UNED"},
+  Emails -> {"tsqvt@example.org"},
+  Date -> "2025-12-21",
+  Version -> "1.0",
+  References -> {"arXiv:XXXX.XXXXX"}
+};
+
+(* ================================================================ *)
+(* Parameters *)
+(* ================================================================ *)
+
+M$Parameters = {
+  (* Standard Model parameters - inherited from SM.fr *)
+
+  (* New parameters for ρ sector *)
+  mrho == {
+    ParameterType -> External,
+    Value -> 3000,
+    TeX -> Subscript[m, \[Rho]],
+    Description -> "ρ mass in GeV",
+    InteractionOrder -> {QED, 0}
+  },
+
+  lamrhoH == {
+    ParameterType -> External,
+    Value -> -3528.0,
+    TeX -> Subscript[\[Lambda], \[Rho]H],
+    Description -> "ρ-Higgs portal coupling in GeV^2",
+    InteractionOrder -> {QED, 2}
+  },
+
+  theta == {
+    ParameterType -> Internal,
+    Value -> 3.89 * Degree,
+    TeX -> \[Theta],
+    Description -> "Mixing angle in radians"
+  },
+
+  cth == {
+    ParameterType -> Internal,
+    Value -> Cos[theta],
+    TeX -> Subscript[c, \[Theta]],
+    Description -> "cos(θ)"
+  },
+
+  sth == {
+    ParameterType -> Internal,
+    Value -> Sin[theta],
+    TeX -> Subscript[s, \[Theta]],
+    Description -> "sin(θ)"
+  },
+
+  Wrho == {
+    ParameterType -> External,
+    Value -> 10.0,
+    TeX -> Subscript[\[CapitalGamma], \[Rho]],
+    Description -> "ρ width in GeV (computed by MadGraph)"
+  }
+};
+
+(* ================================================================ *)
+(* Fields *)
+(* ================================================================ *)
+
+(* We work in unitary gauge where only neutral CP-even scalars exist *)
+(* Interaction basis: hint (SM Higgs), rho0 (new singlet) *)
+(* Mass basis: h (125 GeV), Rho (heavy) *)
+
+M$ClassesDescription = {
+
+  (* Mass eigenstate h (mostly SM Higgs) *)
+  S[1] == {
+    ClassName -> h,
+    SelfConjugate -> True,
+    Mass -> {Mh, 125.0},
+    Width -> {Wh, 0.00407},
+    PDG -> 25,
+    TeX -> h,
+    FullName -> "SM-like Higgs"
+  },
+
+  (* Mass eigenstate Rho (mostly singlet) *)
+  S[2] == {
+    ClassName -> Rho,
+    SelfConjugate -> True,
+    Mass -> {Mrho, Internal},
+    Width -> {WRho, Internal},
+    PDG -> 9000001,
+    TeX -> \[Rho],
+    FullName -> "Heavy singlet scalar"
+  }
+};
+
+(* ================================================================ *)
+(* Lagrangian in Interaction Basis *)
+(* ================================================================ *)
+
+(* Assuming SM Lagrangian LSM is already loaded *)
+(* We add: kinetic terms for rho0, portal interaction, mass terms *)
+
+(* Define interaction basis fields as symbols *)
+hint := Symbol["hint"];  (* Neutral CP-even component of SM Higgs doublet *)
+rho0 := Symbol["rho0"];  (* Singlet scalar *)
+
+(* Kinetic terms *)
+Lkin := 1/2 DC[hint, mu] DC[hint, mu] + 1/2 DC[rho0, mu] DC[rho0, mu];
+
+(* Potential: mass terms + portal *)
+Vmass := -1/2 Mh^2 hint^2 - 1/2 mrho^2 rho0^2;
+
+(* Portal interaction: λ_ρH ρ |H|^2 
+   In unitary gauge: H = (0, (v + hint)/√2)^T, so |H|^2 = (v + hint)^2/2
+   Expanding: λ_ρH ρ [(v^2/2) + v·hint + hint^2/2]
+*)
+vEW = 246;  (* GeV *)
+Vportal := lamrhoH rho0 * (vEW * hint + hint^2 / 2);
+
+(* Total potential *)
+Vpot := Vmass + Vportal;
+
+(* Lagrangian in interaction basis *)
+Lint := Lkin - Vpot;
+
+(* ================================================================ *)
+(* Mixing to Mass Basis *)
+(* ================================================================ *)
+
+(* Rotation to mass eigenstates:
+   hint = cth * h - sth * Rho
+   rho0 = sth * h + cth * Rho
+*)
+
+MixingSubs = {
+  hint -> cth h - sth Rho,
+  rho0 -> sth h + cth Rho
+};
+
+(* Total Lagrangian in mass basis *)
+LagTSQVT := Expand[Lint /. MixingSubs];
+
+(* ================================================================ *)
+(* Additional Notes *)
+(* ================================================================ *)
+
+(* 
+   1. Mass and width of Rho should be set via param_card after UFO export
+   2. For MadGraph simulations:
+      - Set mrho, lamrhoH, theta in param_card
+      - MadGraph will compute Wrho automatically or use external width
+   3. To generate pp > rho > WW/ZZ/tt/hh:
+      generate p p > rho, rho > w+ w-
+      generate p p > rho, rho > z z
+      etc.
+*)

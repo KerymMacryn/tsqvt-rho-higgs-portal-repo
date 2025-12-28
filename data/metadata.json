@@ -1,0 +1,21 @@
+{
+  "version": "v6_benchmarks",
+  "description": "Calibrated matrices for TSQVT rho-Higgs portal benchmarks",
+  "N_total": 12,
+  "calibration_point": {
+    "Lambda_GeV": 1590.0,
+    "m_rho_GeV": 2260.0,
+    "target_theta_deg": -11.1,
+    "target_delta_m2_GeV2": -1040000.0
+  },
+  "computed_values": {
+    "delta_m2_GeV2": -1033676.5988372093,
+    "theta_deg": -11.048753718865624,
+    "alpha1": -0.7902385349238268,
+    "M_rho_scale": -12.957898197239873
+  },
+  "conventions": {
+    "higgs_insertion": "(v+h)/v for H\u2020H = (v+h)\u00b2/2",
+    "normalization": "kappa = m_h\u00b2 / (\u2202\u00b2S/\u2202h\u00b2)"
+  }
+}

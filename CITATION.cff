@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+title: "TSQVT ρ-Higgs Portal: Numerical Repository"
+message: "If you use this software, please cite it as below."
+type: software
+authors:
+  - family-names: Makraini
+    given-names: Kerym
+    affiliation: "Department of Physics, UNED, Madrid, Spain"
+repository-code: "https://github.com/kmakraini/tsqvt-rho-higgs-portal"
+abstract: >-
+  Numerical pipeline for the phenomenological predictions of the 
+  TSQVT rho-Higgs portal. Computes mixing angles, Higgs coupling 
+  deviations, production cross sections, and signal rates for 
+  TeV-scale heavy scalar searches at the LHC.
+keywords:
+  - Higgs portal
+  - spectral action
+  - noncommutative geometry
+  - twistor theory
+  - LHC phenomenology
+  - heavy scalar
+  - VBF
+license: MIT
+version: "2.3"
+date-released: "2025-01-01"

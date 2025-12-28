@@ -1,0 +1,4 @@
+Benchmark,Lambda_TeV,m_rho_TeV,theta_deg,delta_kappa_pct,sigma_ggF_fb,sigma_VBF_fb,R,sigma_BR_WW_fb,viable
+B1,1.590,2.260,-11.08,-1.864,0.1357,3.3153,24.4,1.458,True
+B2,1.500,2.260,-9.96,-1.508,0.1099,3.3153,30.2,1.447,True
+B3,1.680,2.440,-10.65,-1.723,0.0997,2.7372,27.5,1.193,True
