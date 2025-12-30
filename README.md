@@ -289,18 +289,18 @@ Madrid, Spain
 
 ## Changelog
 
-### v2.3 (2025-01-01)
+### v2.3 (2025-12-30)
 - Fixed κ_spec = 50,000 (corrected from 200,000)
 - Added f_k sensitivity scans (±30%)
 - Added kappa_sensitivity.py and figure
 - 18/18 tests passing
 - Zenodo archival
 
-### v2.0 (2024-12-27)
+### v2.0 (2025-12-27)
 - Microscopic mode with calibrated Dirac matrices
 - FeynRules model file
 - Jupyter notebook suite
 
-### v1.0 (2024-12-21)
+### v1.0 (2025-12-21)
 - Initial phenomenological pipeline
 - Benchmark points B1, B2, B3
